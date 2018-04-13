@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../jsmn.h"
 
+
 /*
  * A small example of jsmn parsing when JSON structure is known and number of
  * tokens is predictable.
@@ -27,6 +28,20 @@ int main() {
 	jsmntok_t t[128]; /* We expect no more than 128 tokens */
 
 	jsmn_init(&p);
+	#ifdef DEBUG_MODE
+		printf("\n<JSON_STING>\n");
+		printf("%s",JSON_STRING);
+		printf("\n===========\n");
+	#endif
+
+
+	#ifdef DEBUG_MODE
+		for(i=1;i<r;i++){
+			printf("[%2d] (%d) %d~%d, size:%d\n",i,t[i].type,t[i].start,t[i].end,t[i].size);
+	}
+	#endif
+
+	
 	r = jsmn_parse(&p, JSON_STRING, strlen(JSON_STRING), t, sizeof(t)/sizeof(t[0]));
 	if (r < 0) {
 		printf("Failed to parse JSON: %d\n", r);

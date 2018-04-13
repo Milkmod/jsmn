@@ -9,6 +9,11 @@ libjsmn.a: jsmn.o
 %.o: %.c jsmn.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+debug_example : simple_example
+debug_example : D_OPTION = -DDEBUG_MODE
+
+%.o: %.c jsmn.h
+	$(CC) $(D_OPTION) -c $(CFLAGS) $< -o $@
 test: test_default test_strict test_links test_strict_links
 test_default: test/tests.c
 	$(CC) $(CFLAGS) $(LDFLAGS) $< -o test/$@
